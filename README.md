@@ -361,6 +361,15 @@ print('Average of',len(pcsa0_length), 'Trials :', avgpcsa0_length, '+/-',
       pcsa0_sem)
 print('Average cathodal :', avgpcsa0_lcathode, '+/-', pcsa0_lcathode_sem)
 print('Average anodal :', avgpcsa0_lanode, '+/-', pcsa0_lanode_sem)
+
+print('===T-Tests===')
+from scipy import stats
+lenstats = stats.ttest_ind(pcsa15_length, pcsa0_length, equal_var=True)
+biasstats_sin = stats.ttest_ind(pcsa15_lsin, pcsa0_lsin, equal_var=True)
+biasstats_cos = stats.ttest_ind(pcsa15_lcos, pcsa0_lcos, equal_var=True)
+print(lenstats)
+print(biasstats_sin)
+print(biasstats_cos)
 ```
 </p></details>
 
@@ -394,12 +403,12 @@ rects2 = plt.bar(index + 1.25*bar_width, avgpcsa0_length, bar_width,
                  error_kw=error_config,
                  label='0V PCSA')
 
-plt.annotate("", xy=(0.0, 62.7), xycoords='data',
-           xytext=(0.625, 62.7), textcoords='data',
+plt.annotate("", xy=(0.0, 62.6), xycoords='data',
+           xytext=(0.625, 62.6), textcoords='data',
            arrowprops=dict(arrowstyle="-", ec='black',
-                           connectionstyle="bar,fraction=1.02", 
-                           shrinkA=0, shrinkB=62.5))
-plt.text(0.30, 70.5, 'p<0.05',
+                           connectionstyle="bar,fraction=1.09", 
+                           shrinkA=0, shrinkB=66))
+plt.text(0.30, 70.7, 'p<0.05',
        horizontalalignment='center',
        verticalalignment='center')
 
@@ -455,12 +464,12 @@ ax2.tick_params(axis='x', colors='white')
 ax1.axvline(0, color='black', lw=1)
 ax2.axhline(0, color='black',lw=1)
 
-plt.annotate("", xy=(0.625, -2.4), xycoords='data',
-           xytext=(0, -2.4), textcoords='data',
+plt.annotate("", xy=(0.625, -2.3), xycoords='data',
+           xytext=(0, -2.3), textcoords='data',
            arrowprops=dict(arrowstyle="-", ec='black',
-                           connectionstyle="bar,fraction=1.68", 
-                           shrinkA=128, shrinkB=0))
-ax2.text(0.3, -11, 'p<0.05',
+                           connectionstyle="bar,fraction=1.73", 
+                           shrinkA=132, shrinkB=0))
+ax2.text(0.3, -10.85, 'p<0.05',
        horizontalalignment='center',
        verticalalignment='center')
 
