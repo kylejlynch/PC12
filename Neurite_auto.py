@@ -1,333 +1,166 @@
-import math
 import os
 import numpy as np
-nlength = list() #includes avg of single trial
-nangle = list() #includes avg of single trial
-vectcos = list()
-vectsin = list()
-radians = list()
-l_cathode = list()
-l_anode = list()
-pcsa15_length = list() #includes avgs of trials
-pcsa15_lcos = list() #includes avgs of trials
-pcsa15_lsin = list() #includes avgs of trials
-pcsa0_length = list() #includes avgs of trials
-pcsa0_lcos = list() #includes avgs of trials
-pcsa0_lsin = list() #includes avgs of trials
-avg15_lcathode = list() #includes avgs of trials
-avg15_lanode = list() #includes avgs of trials
-avg0_lcathode = list() #includes avgs of trials
-avg0_lanode = list() #includes avgs of trials
+import pandas as pd
 
+trialdata=[]
 def neurimport() :
-    count = 0
-    templen = list()
-    tempang = list()
-    temprad = list()
-    cosang = list()
-    sinang = list()
-    #extract data
-    for line in handle :
-        if line.startswith(' ') :
-            continue
-        line = line.rstrip()
-        line = line.split('\t')
-        length = float(line[4])
-        templen.append(length)
-        angle = float(line[3])
-        tempang.append(angle)
-        count = count + 1
-    #correction in case angles were measured first
-    counter = 0
-    for i in tempang[0 : int(count/2)] :
-        if not i == 0 :
-            counter = counter + 1
-        else :
-            continue
-    if int(counter) > 0 :
-        #correction delete
-        del templen[0 : int(count/2)]
-        del tempang[int(count/2) : ]
-    if int(counter) == 0 :
-        #delete unwanted data
-        del templen[int(count/2) : ]
-        del tempang[0 : int(count/2)]
-    #convert negative angles
-    for ang in tempang :
-        if ang < 0 :
-            tempang[tempang.index(ang)] = ang + 360
-    #conversion to radians
-    for i in tempang :
-        ang = float(i) * (2 * math.pi)/360
-        temprad.append(ang)
-    #compute cos and sin of angles
-    for i in temprad :
-        cos = math.cos(float(i))
-        sin = math.sin(float(i))
-        cosang.append(cos)
-        sinang.append(sin)
-    #compute vector components
-    for i in range(0 , int(len(templen))) :
-        vcos = templen[i] * cosang[i]
-        vsin = templen[i] * sinang[i]
-        vectcos.append(vcos)
-        vectsin.append(vsin)
-    for i in templen :
-        nlength.append(i)
-    for i in tempang :
-        nangle.append(i)
-    for i in temprad :
-        radians.append(i)
-    #break lengths into anode and cathode
-    cnt = 0
-    for i in nangle :
-        if i >= 0 and i < 180 :
-            l_cathode.append(nlength[cnt])
-        else :
-            l_anode.append(nlength[cnt])
-        cnt = cnt + 1
-        
-#Trial 1
-path = 'Neurite_data/15V PCSA/1/'
-listing = os.listdir(path)
-for file in listing :
-    handle = open(os.path.join(path,file) , 'r')
-    a = neurimport()
-    #compute averages
-    avglen = sum(nlength) / len(nlength) #avg length for single trial
-    avgvcos = sum(vectcos) / len(vectcos) #perp bias for single trial
-    avgvsin = sum(vectsin) / len(vectsin) #parallel bias for single trial
-    lcathode = sum(l_cathode) / len(l_cathode)
-    lanode = sum(l_anode) / len(l_anode)
-
-pcsa15_length.append(avglen)
-pcsa15_lcos.append(avgvcos)
-pcsa15_lsin.append(avgvsin)
-avg15_lcathode.append(lcathode)
-avg15_lanode.append(lanode)
-
-#Display data
-#print('Lengths', nlength)
-#print('Angles', nangle)
-print('Avg Length', avglen)
-print('L*cos(theta)', avgvcos)
-print('L*sin(theta)', avgvsin)
-
-del nlength[:]
-del nangle[:]
-del vectcos[:]
-del vectsin[:]
-del radians[:]
-del l_cathode[:]
-del l_anode[:]
-
-#Trial 2
-path = 'Neurite_data/15V PCSA/2/'
-listing = os.listdir(path)
-for file in listing :
-    handle = open(os.path.join(path,file) , 'r')
-    a = neurimport()
-    #compute averages
-    avglen = sum(nlength) / len(nlength)
-    avgvcos = sum(vectcos) / len(vectcos)
-    avgvsin = sum(vectsin) / len(vectsin)
-    lcathode = sum(l_cathode) / len(l_cathode)
-    lanode = sum(l_anode) / len(l_anode)
-
-pcsa15_length.append(avglen)
-pcsa15_lcos.append(avgvcos)
-pcsa15_lsin.append(avgvsin)
-avg15_lcathode.append(lcathode)
-avg15_lanode.append(lanode)
-
-#Display data
-#print('Lengths', nlength)
-#print('Angles', nangle)
-print('Avg Length', avglen)   
-print('L*cos(theta)', avgvcos)
-print('L*sin(theta)', avgvsin)
-
-del nlength[:]
-del nangle[:]
-del vectcos[:]
-del vectsin[:]
-del radians[:]
-del l_cathode[:]
-del l_anode[:]
-
-#Trial3
-path = 'Neurite_data/15V PCSA/3/'
-listing = os.listdir(path)
-for file in listing :
-    handle = open(os.path.join(path,file) , 'r')
-    a = neurimport()
-    #compute averages
-    avglen = sum(nlength) / len(nlength)
-    avgvcos = sum(vectcos) / len(vectcos)
-    avgvsin = sum(vectsin) / len(vectsin)
-    lcathode = sum(l_cathode) / len(l_cathode)
-    lanode = sum(l_anode) / len(l_anode)
-
-pcsa15_length.append(avglen)
-pcsa15_lcos.append(avgvcos)
-pcsa15_lsin.append(avgvsin)
-avg15_lcathode.append(lcathode)
-avg15_lanode.append(lanode)
-
-#Display data
-#print('Lengths', nlength)
-#print('Angles', nangle)
-print('Avg Length', avglen)   
-print('L*cos(theta)', avgvcos)
-print('L*sin(theta)', avgvsin)
-
-del nlength[:]
-del nangle[:]
-del vectcos[:]
-del vectsin[:]
-del radians[:]
-del l_cathode[:]
-del l_anode[:]
+    listing = os.listdir(path)
+    for file in listing :
+        handle = open(os.path.join(path,file) , 'r')
+        #extract data
+        dfraw = pd.read_csv(handle)
+        if float(dfraw.loc[ : (dfraw['Angle'].count()/2)-1,
+                           ['Angle']].sum()) != 0:
+            #delete unwanted data
+            dfdata = dfraw.loc[ : (dfraw['Angle'].count()/2)-1, 
+                               ['Angle']].reset_index(drop=True)
+            dfdata['Length'] = dfraw.loc[(dfraw['Length'].count()/2) : , 
+                              ['Length']].reset_index(drop=True)
+        #correction in case angles were measured first
+        if float(dfraw.loc[ : (dfraw['Angle'].count()/2)-1,
+                           ['Angle']].sum()) == 0:
+            #delete unwanted data
+            dfdata = dfraw.loc[(dfraw['Angle'].count()/2) : , 
+                               ['Angle']].reset_index(drop=True)
+            dfdata['Length'] = dfraw.loc[ : (dfraw['Length'].count()/2), 
+                              ['Length']].reset_index(drop=True)
+        #convert negative angles
+        dfdata['Angle'] = dfdata['Angle'].apply(lambda x : 
+                                                x + 360 if x < 0 else x)
+        #conversion to radians
+        dfdata['Angle'] = dfdata['Angle'].apply(lambda x : np.radians(x))
+        #vector components
+        dfdata['Lcos'] = np.cos(dfdata['Angle']) * dfdata['Length']
+        dfdata['Lsin'] = np.sin(dfdata['Angle']) * dfdata['Length']
+        g = dfdata.groupby(3.1415>dfdata['Angle'])['Length'].mean()
+        dflgroup = pd.Series(g.values, index=['Anode','Cathode'])
+        trialdata.append(dfdata)
 
 #Trial 1
-path = 'Neurite_data/0V PCSA/1/'
-listing = os.listdir(path)
-for file in listing :
-    handle = open(os.path.join(path,file) , 'r')
-    a = neurimport()
-    #compute averages
-    avglen = sum(nlength) / len(nlength)
-    avgvcos = sum(vectcos) / len(vectcos)
-    avgvsin = sum(vectsin) / len(vectsin)
-    lcathode = sum(l_cathode) / len(l_cathode)
-    lanode = sum(l_anode) / len(l_anode)
+path = 'Neurite_data/csv/15V PCSA/1/'
+a = neurimport()
+dftrial = pd.concat(trialdata)
+pcsa15V = {
+            'Avg Length' : dftrial['Length'].mean(), 
+            'Lcos' : dftrial['Lcos'].mean(),
+            'Lsin' : dftrial['Lsin'].mean(),
+           }
+df = pd.DataFrame(pcsa15V, index=['Trial 1'])
 
-pcsa0_length.append(avglen)
-pcsa0_lcos.append(avgvcos)
-pcsa0_lsin.append(avgvsin)
-avg0_lcathode.append(lcathode)
-avg0_lanode.append(lanode)
-
-#Display data
-#print('Lengths', nlength)
-#print('Angles', nangle)
-print('Avg Length', avglen)   
-print('L*cos(theta)', avgvcos)
-print('L*sin(theta)', avgvsin)
-
-del nlength[:]
-del nangle[:]
-del vectcos[:]
-del vectsin[:]
-del radians[:]
-del l_cathode[:]
-del l_anode[:]
+trialdata=[]
+del dftrial
 
 #Trial 2
-path = 'Neurite_data/0V PCSA/2/'
-listing = os.listdir(path)
-for file in listing :
-    handle = open(os.path.join(path,file) , 'r')
-    a = neurimport()
-    #compute averages
-    avglen = sum(nlength) / len(nlength)
-    avgvcos = sum(vectcos) / len(vectcos)
-    avgvsin = sum(vectsin) / len(vectsin)
-    lcathode = sum(l_cathode) / len(l_cathode)
-    lanode = sum(l_anode) / len(l_anode)
+path = 'Neurite_data/csv/15V PCSA/2/'
+a = neurimport()
+dftrial = pd.concat(trialdata)
+pcsa15V = {
+            'Avg Length' : dftrial['Length'].mean(), 
+            'Lcos' : dftrial['Lcos'].mean(),
+            'Lsin' : dftrial['Lsin'].mean(),
+           }
+df.loc['Trial 2'] = pcsa15V
 
-pcsa0_length.append(avglen)
-pcsa0_lcos.append(avgvcos)
-pcsa0_lsin.append(avgvsin)
-avg0_lcathode.append(lcathode)
-avg0_lanode.append(lanode)
+trialdata=[]
+del dftrial
+
+#Trial 3
+path = 'Neurite_data/csv/15V PCSA/3/'
+a = neurimport()
+dftrial = pd.concat(trialdata)
+pcsa15V = {
+            'Avg Length' : dftrial['Length'].mean(), 
+            'Lcos' : dftrial['Lcos'].mean(),
+            'Lsin' : dftrial['Lsin'].mean(),
+           }
+df.loc['Trial 3'] = pcsa15V
+
+trialdata=[]
+del dftrial
+
+#Trial 1
+path = 'Neurite_data/csv/0V PCSA/1/'
+a = neurimport()
+dftrial = pd.concat(trialdata)
+pcsa0V = {
+            'Avg Length' : dftrial['Length'].mean(), 
+            'Lcos' : dftrial['Lcos'].mean(),
+            'Lsin' : dftrial['Lsin'].mean(),
+           }
+df2 = pd.DataFrame(pcsa0V, index=['Trial 1'])
+
+trialdata=[]
+del dftrial
+
+#Trial 2
+path = 'Neurite_data/csv/0V PCSA/2/'
+a = neurimport()
+dftrial = pd.concat(trialdata)
+pcsa0V = {
+            'Avg Length' : dftrial['Length'].mean(), 
+            'Lcos' : dftrial['Lcos'].mean(),
+            'Lsin' : dftrial['Lsin'].mean(),
+           }
+df2.loc['Trial 2'] = pcsa0V
+
+trialdata=[]
+del dftrial
+
+#Trial 3
+path = 'Neurite_data/csv/0V PCSA/3/'
+a = neurimport()
+dftrial = pd.concat(trialdata)
+pcsa0V = {
+            'Avg Length' : dftrial['Length'].mean(), 
+            'Lcos' : dftrial['Lcos'].mean(),
+            'Lsin' : dftrial['Lsin'].mean(),
+           }
+df2.loc['Trial 3'] = pcsa0V
+
+trialdata=[]
+del dftrial
 
 #Display data
-#print('Lengths', nlength)
-#print('Angles', nangle)
-print('Avg Length', avglen)   
-print('L*cos(theta)', avgvcos)
-print('L*sin(theta)', avgvsin)
-
-del nlength[:]
-del nangle[:]
-del vectcos[:]
-del vectsin[:]
-del radians[:]
-del l_cathode[:]
-del l_anode[:]
-
-#Trial3
-path = 'Neurite_data/0V PCSA/3/'
-listing = os.listdir(path)
-for file in listing :
-    handle = open(os.path.join(path,file) , 'r')
-    a = neurimport()
-    #compute averages
-    avglen = sum(nlength) / len(nlength)
-    avgvcos = sum(vectcos) / len(vectcos)
-    avgvsin = sum(vectsin) / len(vectsin)
-    lcathode = sum(l_cathode) / len(l_cathode)
-    lanode = sum(l_anode) / len(l_anode)
-
-pcsa0_length.append(avglen)
-pcsa0_lcos.append(avgvcos)
-pcsa0_lsin.append(avgvsin)
-avg0_lcathode.append(lcathode)
-avg0_lanode.append(lanode)
-
-#Display data
-#print('Lengths', nlength)
-#print('Angles', nangle)
-print('Avg Length', avglen)   
-print('L*cos(theta)', avgvcos)
-print('L*sin(theta)', avgvsin)
-
-del nlength[:]
-del nangle[:]
-del vectcos[:]
-del vectsin[:]
-del radians[:]
-del l_cathode[:]
-del l_anode[:]
+print(df)
+print(df2)
 
 #Statistics
 print('===15V PCSA===')
-avgpcsa15_length = float(sum(pcsa15_length)/len(pcsa15_length))
-pcsa15_sem = np.std(pcsa15_length)/math.sqrt(len(pcsa15_length))
-avgpcsa15_lcathode = float(sum(avg15_lcathode)/len(avg15_lcathode))
-pcsa15_lcathode_sem = np.std(avg15_lcathode)/math.sqrt(len(avg15_lcathode))
-avgpcsa15_lanode = float(sum(avg15_lanode)/len(avg15_lanode))
-pcsa15_lanode_sem = np.std(avg15_lanode)/math.sqrt(len(avg15_lanode))
-avgpcsa15_lsin = float(sum(pcsa15_lsin)/len(pcsa15_lsin))
-pcsa15_lsin_sem = np.std(pcsa15_lsin)/math.sqrt(len(pcsa15_lsin))
-avgpcsa15_lcos = float(sum(pcsa15_lcos)/len(pcsa15_lcos))
-pcsa15_lcos_sem = np.std(pcsa15_lcos)/math.sqrt(len(pcsa15_lcos))
-print('Average of',len(pcsa15_length), 'Trials :', avgpcsa15_length, '+/-',
+avgpcsa15_length = df['Avg Length'].mean()
+pcsa15_sem = df['Avg Length'].sem(ddof=0)
+#avgpcsa15_lcathode = df['Lcathode'].mean()
+#pcsa15_lcathode_sem = df['Lcathode'].sem(ddof=0)
+#avgpcsa15_lanode = df['Lanode'].mean()
+#pcsa15_lanode_sem = df['Lanode'].sem(ddof=0)
+avgpcsa15_lsin = df['Lsin'].mean()
+pcsa15_lsin_sem = df['Lsin'].sem(ddof=0)
+avgpcsa15_lcos = df['Lcos'].mean()
+pcsa15_lcos_sem = df['Lcos'].sem(ddof=0)
+print('Average of',len(df['Avg Length']), 'Trials :', avgpcsa15_length, '+/-',
       pcsa15_sem)
-print('Average cathodal :', avgpcsa15_lcathode, '+/-', pcsa15_lcathode_sem)
-print('Average anodal :', avgpcsa15_lanode, '+/-', pcsa15_lanode_sem)
+#print('Average cathodal :', avgpcsa15_lcathode, '+/-', pcsa15_lcathode_sem)
+#print('Average anodal :', avgpcsa15_lanode, '+/-', pcsa15_lanode_sem)
 
 print('===0V PCSA===')
-avgpcsa0_length = float(sum(pcsa0_length)/len(pcsa0_length))
-pcsa0_sem = np.std(pcsa0_length)/math.sqrt(len(pcsa0_length))
-avgpcsa0_lcathode = float(sum(avg0_lcathode)/len(avg0_lcathode))
-pcsa0_lcathode_sem = np.std(avg0_lcathode)/math.sqrt(len(avg0_lcathode))
-avgpcsa0_lanode = float(sum(avg0_lanode)/len(avg0_lanode))
-pcsa0_lanode_sem = np.std(avg0_lanode)/math.sqrt(len(avg0_lanode))
-avgpcsa0_lsin = float(sum(pcsa0_lsin)/len(pcsa0_lsin))
-pcsa0_lsin_sem = np.std(pcsa0_lsin)/math.sqrt(len(pcsa15_lsin))
-avgpcsa0_lcos = float(sum(pcsa0_lcos)/len(pcsa0_lcos))
-pcsa0_lcos_sem = np.std(pcsa0_lcos)/math.sqrt(len(pcsa0_lcos))
-print('Average of',len(pcsa0_length), 'Trials :', avgpcsa0_length, '+/-',
+avgpcsa0_length = df2['Avg Length'].mean()
+pcsa0_sem = df2['Avg Length'].sem(ddof=0)
+#avgpcsa0_lcathode = df2['Lcathode'].mean()
+#pcsa0_lcathode_sem = df2['Lcathode'].sem(ddof=0)
+#avgpcsa0_lanode = df2['Lanode'].mean()
+#pcsa0_lanode_sem = df2['Lanode'].sem(ddof=0)
+avgpcsa0_lsin = df2['Lsin'].mean()
+pcsa0_lsin_sem = df2['Lsin'].sem(ddof=0)
+avgpcsa0_lcos = df2['Lcos'].mean()
+pcsa0_lcos_sem = df2['Lcos'].sem(ddof=0)
+print('Average of',len(df2['Avg Length']), 'Trials :', avgpcsa0_length, '+/-',
       pcsa0_sem)
-print('Average cathodal :', avgpcsa0_lcathode, '+/-', pcsa0_lcathode_sem)
-print('Average anodal :', avgpcsa0_lanode, '+/-', pcsa0_lanode_sem)
+#print('Average cathodal :', avgpcsa0_lcathode, '+/-', pcsa0_lcathode_sem)
+#print('Average anodal :', avgpcsa0_lanode, '+/-', pcsa0_lanode_sem)
 print('===T-Tests===')
 from scipy import stats
-lenstats = stats.ttest_ind(pcsa15_length, pcsa0_length, equal_var=True)
-biasstats_sin = stats.ttest_ind(pcsa15_lsin, pcsa0_lsin, equal_var=True)
-biasstats_cos = stats.ttest_ind(pcsa15_lcos, pcsa0_lcos, equal_var=True)
+lenstats = stats.ttest_ind(df['Avg Length'], df2['Avg Length'], equal_var=True)
+biasstats_sin = stats.ttest_ind(df['Lsin'], df2['Lsin'], equal_var=True)
+biasstats_cos = stats.ttest_ind(df['Lcos'], df2['Lcos'], equal_var=True)
 print(lenstats)
 print(biasstats_sin)
 print(biasstats_cos)
