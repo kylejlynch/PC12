@@ -6,24 +6,24 @@
 This notebook will explain a portion of my master's thesis research.
 The goal of my research was to develop a way in which to expose neurons growing on the surface of a particular  material to electric fields and compare to neurons that were not subject to such stimulation. Figure 1 below shows the electrical device that I designed and constructed.
 
-![Figure 1. Experimental Design and Electrical Device](img/expsetup.png)
+![Figure 1. Experimental Design and Electrical Device](https://i.imgur.com/5X2k7fP.png)
 
 Prior to application of the electric field, I first had to coat the surface of the substrate with an extracellular matrix so that the cells would adhere. Once the cells were plated, I connected the electrical device to a voltage source for approximately 24 hrs along side of a control with no voltage.
 
 After the 24 hr electrical stimulation, I fixed the cells for scanning electron microscopy (SEM) and imaged the samples. Imaging would result in dozens of pictures per sample per trial. I then measured neurite length and orientation using ImageJ as shown below in Figure 2. Yellow lines indicate traced neurites for length measurement. Red lines indicate angles of respective neurites to an imaginary 0 degree axis. The anode of the electrical device was located at 270 degrees in all images.
 
-![Figure 2. Neurite Length and Angle Measurement](img/neurtrace.png)
+![Figure 2. Neurite Length and Angle Measurement](https://i.imgur.com/Mn2DdBC.png)
 
 Each image measured generated an excel file as shown below in Figure 3. Hundreds on neurites were measured along with a lot of junk data that needed to be cleaned up before analysis could take place.
 
-![Figure 3. Raw Data in Excel](img/neurdata.png)
+![Figure 3. Raw Data in Excel](https://i.imgur.com/s6RqHRq.png)
 
 ## Data Extraction and Cleaning
 
 The code below extracts the data needed from all files for 3 trials each for both experimental and control conditions.
 
 <details>
-    <summary>Expand to See Code</summary>
+    <summary>Expand to See Code</summary><p>
     
 ```python
 import os
@@ -148,15 +148,14 @@ df2.loc['Trial 3'] = pcsa0V
 trialdata=[]
 del dftrial
 ```
-
-</details>
+</p></details>
 
 ## Statistics
 
 The code below computes averages and standard error in preparation for plotting.
 
 <details>
-    <summary>Expand to See Code</summary>
+    <summary>Expand to See Code</summary><p>
 
 ```python
 #Statistics
@@ -200,15 +199,14 @@ print(lenstats)
 print(biasstats_sin)
 print(biasstats_cos)
 ```
-
-</details>
+</p></details>
 
 ## Plotting
 
 The code below produces plots with error bars (standard error of the mean) and significance  (p values).
 
 <details>
-    <summary>Expand to See Code</summary>
+    <summary>Expand to See Code</summary><p>
 
 ```python
 #plotting
@@ -319,12 +317,11 @@ plt.show()
 fig.savefig('bias.png', bbox_inches = 'tight', dpi=300)
 plt.close('all')
 ```
+</p></details>
 
-</details>
+![Figure 4. Average Neurite Length](https://i.imgur.com/rHP5rrB.png)
 
-![Figure 4. Average Neurite Length](img/length.png)
-
-![Figure 5. Bias or Directional Preference](img/bias.png)
+![Figure 5. Bias or Directional Preference](https://i.imgur.com/LcJ77N7.png)
 
 ## Conculsion
 
