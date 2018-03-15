@@ -2,7 +2,7 @@
 # Electric Field Growth Dependent Behavior of PC12 Neuron-analogs
 
 - [Introduction](#introduction)
-- [Data Extraction and Cleaning](#data%20Extraction%20and%20Cleaning)
+- [Data Extraction and Cleaning](#data%20extraction%20and%20cleaning)
 - [Statistics](#statistics)
 - [Plotting](#plotting)
 - [Conclusion](#conclusion)
