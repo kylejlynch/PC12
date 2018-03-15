@@ -27,9 +27,6 @@ Each image measured generated an excel file as shown below in Figure 3. Hundreds
 ## Data Extraction and Cleaning
 
 The code below extracts the data needed from all files for 3 trials each for both experimental and control conditions.
-
-<details>
-    <summary>Expand to See Code</summary><p>
     
 ```python
 import os
@@ -154,14 +151,10 @@ df2.loc['Trial 3'] = pcsa0V
 trialdata=[]
 del dftrial
 ```
-</p></details>
 
 ## Statistics
 
 The code below computes averages and standard error in preparation for plotting.
-
-<details>
-    <summary>Expand to See Code</summary><p>
 
 ```python
 #Statistics
@@ -205,14 +198,10 @@ print(lenstats)
 print(biasstats_sin)
 print(biasstats_cos)
 ```
-</p></details>
 
 ## Plotting
 
 The code below produces plots with error bars (standard error of the mean) and significance  (p values).
-
-<details>
-    <summary>Expand to See Code</summary><p>
 
 ```python
 #plotting
@@ -323,7 +312,6 @@ plt.show()
 fig.savefig('bias.png', bbox_inches = 'tight', dpi=300)
 plt.close('all')
 ```
-</p></details>
 
 ![Figure 4. Average Neurite Length](https://i.imgur.com/rHP5rrB.png)
 
