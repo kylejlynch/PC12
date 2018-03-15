@@ -7,8 +7,6 @@
 - [Plotting](#plotting)
 - [Conclusion](#conclusion)
 
-<!-- toc -->
-
 ## Introduction
 
 This notebook will explain a portion of my master's thesis research.
@@ -331,6 +329,6 @@ plt.close('all')
 
 ![Figure 5. Bias or Directional Preference](https://i.imgur.com/LcJ77N7.png)
 
-## Conculsion
+## Conclusion
 
 Electric field stimulation resulted in PC12 growing longer neurites overall (Figure 4). More importantly, I have shown that neurites growing toward the anode  of the device (parallel to the electric field) grew longer than those growing perpendicularly (at 90 degree angles) to the field (Figure 5).
