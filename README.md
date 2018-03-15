@@ -1,6 +1,12 @@
 
 # Electric Field Growth Dependent Behavior of PC12 Neuron-analogs
 
+* [Introduction](https://kylejlynch.github.io/PC12/#Introduction)
+* [Data Extraction and Cleaning](https://kylejlynch.github.io/PC12/#Data%20Extraction%20and%20Cleaning)
+* [Statistics](https://kylejlynch.github.io/PC12/#Statistics)
+* [Plotting](https://kylejlynch.github.io/PC12/#Plotting)
+* [Conclusion](https://kylejlynch.github.io/PC12/#Conclusion)
+
 ## Introduction
 
 This notebook will explain a portion of my master's thesis research.
