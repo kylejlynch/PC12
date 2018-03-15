@@ -7,6 +7,8 @@
 - [Plotting](#plotting)
 - [Conclusion](#conclusion)
 
+[View the Jupyter Notebook Here](https://nbviewer.jupyter.org/github/kylejlynch/PC12/blob/master/PC12_Electric_Field.ipynb)
+
 ## Introduction
 
 This notebook will explain a portion of my master's thesis research.
